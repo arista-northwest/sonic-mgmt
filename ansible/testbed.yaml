@@ -13,7 +13,7 @@
   server: server_1
   vm_base:
   dut:
-    - ck326
+    - ld569
   inv_name: lab
   auto_recover: 'False'
   comment: Test ptf Mellanox
