@@ -10,7 +10,7 @@ no lldp run
 !
 hostname {{ inventory_hostname }}
 !
-ntp source vrf management Management1
+ntp local-interface vrf management Management1
 {% for ntp_server in ntp_servers %}
 ntp server vrf management {{ ntp_server }}
 {% endfor %}
@@ -27,8 +27,7 @@ username eapi privilege 15 secret 0 {{ lab_admin_pass }}
 !
 vlan {{ device_vlan_range[inventory_hostname] | list | join(',') }}
 !
-vrf definition management
-   rd 1:1
+vrf instance management
 !
 {% for i in range(1,65) %}
 {% set intf =  'Ethernet' + i|string + '/1'  %}
@@ -139,6 +138,7 @@ interface {{  intf }}
 interface Management 1
  description TO LAB MGMT SWITCH
  ip address {{ device_info[inventory_hostname]["ManagementIp"] }}
+ vrf management
  no shutdown
 !
 # LACP packets pass through
@@ -163,13 +163,16 @@ NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE NOTICE
 EOF
 !
 management api http-commands
-   vrf management
-      no shutdown
-!
-management api http-commands
  no protocol https
  protocol http
  no shutdown
+ vrf management
+      no shutdown
+!
+management api gnmi
+   transport grpc default
+      vrf management
+   provider eos-native
 !
 management console
    idle-timeout 60

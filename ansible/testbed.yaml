@@ -1,16 +1,19 @@
 ---
 
-- conf-name: ptf1-m
+- conf-name: ptf1-b
   group-name: ptf1
   topo: ptf32
   ptf_image_name: docker-ptf
   ptf: ptf_ptf1
   ptf_ip: 10.255.0.188/24
   ptf_ipv6: 2001:db8:1::1/64
+  ptf: ptf-unknown
+  ptf_ip: 10.250.0.188/24
+  ptf_ipv6:
   server: server_1
   vm_base:
   dut:
-    - str-msn2700-01
+    - ck326
   inv_name: lab
   auto_recover: 'False'
   comment: Test ptf Mellanox
@@ -22,6 +25,9 @@
   ptf: ptf_ptf2
   ptf_ip: 10.255.0.189/24
   ptf_ipv6: 2001:db8:1::2/64
+  ptf: ptf-unknown
+  ptf_ip: 10.250.0.189/24
+  ptf_ipv6:
   server: server_1
   vm_base:
   dut:
@@ -67,14 +73,21 @@
   ptf_image_name: docker-ptf
   ptf: ptf_vms1-3
   ptf_ip: 10.255.0.180/24
-  ptf_ipv6:
-  server: server_1
-  vm_base: VM0100
-  dut:
-    - str-msn2700-01
-  inv_name: lab
-  auto_recover: 'True'
   comment: Tests Mellanox SN2700 vms
+# - conf-name: vms-a7260-t0
+#   group-name: vms3-1
+#   topo: t0-116
+#   ptf_image_name: docker-ptf
+#   ptf: ptf-unknown
+#   ptf_ip: 10.250.0.180/24
+#   ptf_ipv6:
+#   server: server_1
+#   vm_base: VM0100
+#   dut:
+#     - lab-a7260-01
+#   inv_name: lab
+#   auto_recover: 'True'
+#   comment: Tests Arista A7260 vms
 
 - conf-name: vms-s6000-t0
   group-name: vms2-1

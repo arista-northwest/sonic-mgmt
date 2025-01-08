@@ -62,13 +62,13 @@ all:
 
 vm_host_1:
   hosts:
-    STR-ACS-SERV-01:
-      ansible_host: 10.251.0.245
+    tst-cva-34:
+      ansible_host: 10.250.0.247
 
-vm_host_2:
-  hosts:
-    STR-ACS-SERV-02:
-      ansible_host: 10.251.0.192
+# vm_host_2:
+#   hosts:
+#     STR-ACS-SERV-02:
+#       ansible_host: 10.251.0.192
 
 vms_1:
   hosts:
@@ -347,14 +347,14 @@ vms_2:
 # The groups below are helper to limit running playbooks to specific server(s) only
 server_1:
   vars:
-    host_var_file: host_vars/STR-ACS-SERV-01.yml
+    host_var_file: host_vars/tst-cva-34.yml
   children:
     vm_host_1:
     vms_1:
 
-server_2:
-  vars:
-    host_var_file: host_vars/STR-ACS-SERV-02.yml
-  children:
-    vm_host_2:
-    vms_2:
+# server_2:
+#   vars:
+#     host_var_file: host_vars/STR-ACS-SERV-02.yml
+#   children:
+#     vm_host_2:
+#     vms_2:

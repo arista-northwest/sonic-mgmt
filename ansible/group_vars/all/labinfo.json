@@ -21,7 +21,7 @@
         },
         "Arista": {
             "user": "admin",
-            "passwd": ["password", "123456"],
+            "passwd": ["password", "123456", "none"],
             "enable": ["", null]
         },
         "Cisco": {
