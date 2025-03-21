@@ -77,7 +77,6 @@
       until: apt_res is success
       with_items:
         - ifupdown
-        - qemu
         - openvswitch-switch
         - net-tools
         - bridge-utils
@@ -92,6 +91,7 @@
       until: apt_res is success
       with_items:
         - iproute2
+        #- qemu
         - vlan
         - apt-transport-https
         - ca-certificates
@@ -106,6 +106,7 @@
       until: apt_res is success
       apt:
         pkg:
+        - qemu
         - python
         - libvirt-bin
         - python-libvirt
@@ -120,37 +121,66 @@
       until: apt_res is success
       apt:
         pkg:
+        - qemu
         - python3-libvirt
         - python3-pip
         - libvirt-daemon-system
         - qemu-system-x86
       become: yes
       when: host_distribution_version.stdout == "20.04" or host_distribution_version.stdout == "22.04"
+    
+    - name: Install necessary packages (Ubuntu 24.04-LTS)
+      register: apt_res
+      retries: 2
+      delay: 30
+      until: apt_res is success
+      apt:
+        pkg:
+        - qemu-system
+        - python3-libvirt
+        - python3-pip
+        - libvirt-daemon-system
+        - qemu-system-x86
+        - python3-docker
+      become: yes
+      when: host_distribution_version.stdout == "24.04"
+
   when: package_installation|bool
 
-- name: Get default pip_executable
-  set_fact:
-    pip_executable: pip
-  when: pip_executable is not defined and host_distribution_version.stdout != "20.04" and host_distribution_version.stdout != "22.04"
+- block:
+    - name: Get default pip_executable
+      set_fact:
+        pip_executable: pip
+      when: pip_executable is not defined and host_distribution_version.stdout != "20.04" and host_distribution_version.stdout != "22.04" and host_distribution_version.stdout != "24.04"
 
-- name: Get default pip_executable
-  set_fact:
-    pip_executable: pip3
-  when: pip_executable is not defined and (host_distribution_version.stdout == "20.04" or host_distribution_version.stdout == "22.04")
+    - name: Get default pip_executable
+      set_fact:
+        pip_executable: pip3
+      when: pip_executable is not defined and (host_distribution_version.stdout == "20.04" or host_distribution_version.stdout == "22.04" or host_distribution_version.stdout == "24.04")
 
-- name: remove old python packages
-  pip: name=docker-py state=absent executable={{ pip_executable }}
-  environment: "{{ proxy_env | default({}) }}"
-  ignore_errors: yes
+    - name: remove old python packages
+      pip: name=docker-py state=absent executable={{ pip_executable }}
+      environment: "{{ proxy_env | default({}) }}"
+      ignore_errors: yes
 
-- include_tasks: docker.yml
-  when: package_installation|bool
+    - include_tasks: docker.yml
+      when: package_installation|bool
 
-- name: Install requests package
-  pip: name=requests version=2.32.3 state=present executable={{ pip_executable }}
-  become: yes
-  environment: "{{ proxy_env | default({}) }}"
-  when: pip_executable=="pip3"
+    - name: Install requests package
+      pip: name=requests version=2.32.3 state=present executable={{ pip_executable }}
+      become: yes
+      environment: "{{ proxy_env | default({}) }}"
+      when: pip_executable=="pip3"
+  when: (host_distribution_version.stdout == "18.04" or host_distribution_version.stdout == "20.04" or host_distribution_version.stdout == "22.04")
+
+# - block:
+#     - name: Install requests package (Ubuntu 24.04-LTS)
+#       pip:
+#         name: requests
+#         version: 2.32.3
+#         extra_args: --user
+#       environment: "{{ proxy_env | default({}) }}"
+#   when: host_distribution_version.stdout == "24.04"
 
 - name: Ensure {{ ansible_user }} in docker,sudo group
   user:
@@ -165,7 +195,7 @@
     append: yes
     groups: libvirt
   become: yes
-  when: host_distribution_version.stdout == "20.04" or host_distribution_version.stdout == "22.04"
+  when: host_distribution_version.stdout == "20.04" or host_distribution_version.stdout == "22.04" or host_distribution_version.stdout == "24.04"
 
 - name: Install br_netfilter kernel module
   become: yes
