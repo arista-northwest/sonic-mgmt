@@ -1,6 +1,9 @@
 mgmt_bridge: br1
 mgmt_prefixlen: 24
 mgmt_gw: 10.250.0.1
-mgmt_gw_v6: fec0::1
+mgmt_gw_v6:
 vm_mgmt_gw: 10.250.0.1
-external_port: enp59s0np0
+external_port: eth4
+
+#/home/jmather/.pyenv/shims/python3
+ansible_python_interpreter: /usr/bin/python 

@@ -22,3 +22,4 @@ ansible/*_tmp
 .python-version
 
 sonic-dump/
+.scratch*

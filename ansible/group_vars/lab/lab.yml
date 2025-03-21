@@ -3,26 +3,26 @@
 # file: group_vars/lab.yml
 
 # ntp variables
-ntp_servers: ['10.11.0.1', '10.11.0.2']
+ntp_servers: ['10.240.107.179', '10.90.20.189', '10.88.21.180']
 
 # syslog variables
-syslog_servers: ['10.11.0.5', '10.11.0.6']
+syslog_servers: ['10.240.107.179']
 
 # dns variables
-dns_servers: ['10.11.0.5', '10.11.0.6']
+dns_servers: ['172.22.22.40', '172.22.22.10']
 
 # forced_mgmt_routes
-forced_mgmt_routes: ['172.17.0.1/24']
+forced_mgmt_routes: []
 
 # ErspanDestinationIpv4
-erspan_dest: ['10.11.0.7']
+erspan_dest: ['10.240.107.179']
 
 radius_servers: []
 
 radius_passkey: testing123
 
 # It can be a real lab tacacs server.
-tacacs_servers: ['172.17.0.6']
+tacacs_servers: ['10.240.107.179']
 tacacs_passkey: testing123
 
 # tacacs grous
@@ -33,20 +33,20 @@ tacacs_group: 'testlab'
 tacacs_enabled_by_default: false
 
 # snmp servers
-snmp_servers: ['10.0.0.9']
+snmp_servers: ['10.240.107.179']
 
 # dhcp relay servers
-dhcp_servers: ['192.0.0.1', '192.0.0.2', '192.0.0.3', '192.0.0.4']
+dhcp_servers: []
 
 # dhcpv6 relay servers
-dhcpv6_servers: ['fc02:2000::1', 'fc02:2000::2', 'fc02:2000::3', 'fc02:2000::4']
+dhcpv6_servers: []
 
 # snmp variables
 snmp_rocommunity: public
 snmp_location: testlab
 
 # bgp slb passive range
-bgp_slb_passive_range: 10.255.0.0/25
+bgp_slb_passive_range: 10.250.0.0/25
 
 #For Arista fanout switch deployment only
 fanout_admin_user: "fanout"

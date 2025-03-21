@@ -1,10 +1,5 @@
 Hostname,ManagementIp,HwSku,Type,Protocol,Os
-pdu-1,192.168.9.2,Apc,Pdu,snmp,
-pdu-2,192.168.9.3,Sentry,Pdu,snmp,
-console-1,192.168.10.1/23,Cisco,ConsoleServer,ssh,sonic
-console-2,192.168.10.2/23,Sonic,ConsoleServer,ssh,cisco
-management-1,192.168.10.3/23,Sonic,MgmtTsToRRouter,,sonic
-lg569,10.240.107.173/25,Arista-7050CX3-32S-C32,DevSonic,,sonic
+ld569,10.240.107.173/25,Arista-7050CX3-32S-C32,DevSonic,,sonic
 up763,10.240.107.181/25,Arista-7060CX-32S,FanoutRoot,,eos
 gd524,10.240.107.183/25,Arista-7260CX3-64,FanoutLeaf,,eos
 tst-cva-34,10.240.107.179/25,TestServ,Server,,ubuntu

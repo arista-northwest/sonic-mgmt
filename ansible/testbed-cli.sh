@@ -415,7 +415,7 @@ function connect_topo
 
   read_file ${testbed_name}
 
-  ANSIBLE_SCP_IF_SSH=y ansible-playbook -i $vmfile testbed_connect_topo.yml \
+  ANSIBLE_SCP_IF_SSH=y ansible-playbook -i $vmfile -i ${inv_name} testbed_connect_topo.yml \
                      --vault-password-file="${passwd}" --limit "$server" \
                      -e duts_name="$duts" \
                      -e VM_base="$vm_base" -e ptf_ip="$ptf_ip" \
