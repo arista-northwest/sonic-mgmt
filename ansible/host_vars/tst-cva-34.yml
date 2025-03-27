@@ -4,6 +4,3 @@ mgmt_gw: 10.250.0.1
 mgmt_gw_v6:
 vm_mgmt_gw: 10.250.0.1
 external_port: eth4
-
-#/home/jmather/.pyenv/shims/python3
-ansible_python_interpreter: /usr/bin/python 

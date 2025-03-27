@@ -15,6 +15,21 @@
   auto_recover: 'False'
   comment: Test ptf Arista
 
+- conf-name: a7050cx3-t0-1
+  group-name: vms1-1
+  topo: t0
+  ptf_image_name: docker-ptf
+  ptf: ptf_vms1-1
+  ptf_ip: 10.250.0.188/24
+  ptf_ipv6: 2001:db8:1::1/64
+  server: server_1
+  vm_base: VM0100
+  dut:
+    - ld569
+  inv_name: lab
+  auto_recover: 'False'
+  comment: Test Arista vms
+
 # - conf-name: ptf2-b
 #   group-name: ptf2
 #   topo: ptf64
